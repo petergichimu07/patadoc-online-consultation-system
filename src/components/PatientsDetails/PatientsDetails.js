@@ -15,6 +15,10 @@ const PatientsDetails = (props) => {
     const room = props.match.params.id;
     window.location.href = `/chat?name=${name}&room=${room}`;
   };
+  const assign = () =>{
+    const specializationField=onerequest.specializationField;
+    const id= props.match.params.id
+  }
 
   console.log(props.match.params.id);
   const themoment = moment(onerequest.createdAt.toDate()).calendar();
@@ -41,8 +45,9 @@ const PatientsDetails = (props) => {
               >
                 Reply
               </button>
+              {/* <button onClick={assign}>Assign to specialist</button> */}
               <Link
-                to={"/assign/" + props.match.params.id}
+                to={"/assign/" + props.match.params.id+"/"+ onerequest.specializationField }
                 category={onerequest.specializationField}
                 id={props.match.params.id}
                 className="btn red lighten-1 waves-effect waves-dark z-depth-0"

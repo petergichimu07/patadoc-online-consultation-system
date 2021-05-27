@@ -34,7 +34,7 @@ function App() {
             <Route path="/signup-doctor" component={signupDoctors} />
             <Route path="/join" exact component={Join} />
             <Route path="/chat" component={Chat} />
-            <Route path="/assign/:id" component={AssignSpecialist}/>
+            <Route path="/assign/:id/:category" component={AssignSpecialist}/>
             <Route component={()=><div className="card"><div className="card-title">Error 404</div><div className="card-content">Sorry, Page Not Found</div></div>} />
           </Switch>
         </div>
