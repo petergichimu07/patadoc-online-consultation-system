@@ -6,6 +6,7 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import LoggedInPatientList from "../PatientsDetails/loggedInPatientList";
+import SpecialistsView from "../specialists/specialistsView";
 class Dashboard extends Component {
   render() {
     const { patientsRequests, auth, profile } = this.props;
@@ -29,7 +30,7 @@ class Dashboard extends Component {
       return (
         <div className="dashboard container ">
           <div className="row ">
-            <div className="col s12 m6" style={{ maxHeight: "75%" }}>
+            <div className="col s12 m6" >
               <div className="z-index-0 ">
                 <div>Current requests</div>
               </div>
@@ -46,7 +47,14 @@ class Dashboard extends Component {
         </div>
       );
     } else if (!profile.type){
-      return <div>Hello doc</div>;
+      return <div className="container">
+        <div className="card">
+          <div className="card-title">Assigned Patient Requests</div>
+          <SpecialistsView/>
+          
+        </div>
+
+      </div>;
     }
     else return <div>Please wait...</div>;
   }
