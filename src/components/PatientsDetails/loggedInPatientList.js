@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 const LoggedInPatientList = (props) => {
   const { patientsRequests, auth, profile, userId } = props;
   if (!auth.uid) return <Redirect to="/signin" />;
-
+  
+  console.log(patientsRequests);
   const recordsAsArray = Object.entries(patientsRequests).filter(
     ([key, value]) => value.authorId === userId
   );

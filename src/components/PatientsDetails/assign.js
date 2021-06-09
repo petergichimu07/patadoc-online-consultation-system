@@ -20,10 +20,11 @@ const AssignSpecialist = (props) => {
 
     db.collection("doctors").doc(key).update({
       status: "engaged",
-      engagedRequestID: key,
+      
     });
     db.collection("patientRequests").doc(requestId).update({
       status: "engaged",
+      engagedTo: key
     });
   };
   if (availableSpecialists.length === 0) {
@@ -32,7 +33,7 @@ const AssignSpecialist = (props) => {
         <div className="card">
           <div className="card-title">Available {category} Specialists</div>
           <div className="card-content">
-            there are no specialists in this area
+            There are currently no specialists in this area.
           </div>
         </div>
       </div>

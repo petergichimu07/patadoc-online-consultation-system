@@ -32,7 +32,7 @@ class Dashboard extends Component {
           <div className="row ">
             <div className="col s12 m6" >
               <div className="z-index-0 ">
-                <div>Current requests</div>
+                <h5 className="blue-text"style={{}}>Current requests</h5>
               </div>
 
               <PatientList patientsRequests={patientsRequests} />

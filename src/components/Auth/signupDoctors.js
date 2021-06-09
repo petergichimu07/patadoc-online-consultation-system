@@ -67,11 +67,11 @@ class signupDoctors extends Component {
             onChange={this.handleChange}
             required
           >
-            <option value="dental health">Dental Health</option>
-            <option value="psychiatry">Psychiatry</option>
-            <option value="dermatology">Dermatology</option>
-            <option value="gaenacology">Gaenacology</option>
-            <option value="oncology">Oncology</option>
+            <option value="Dental health">Dental Health</option>
+            <option value="Psychiatry">Psychiatry</option>
+            <option value="Dermatology">Dermatology</option>
+            <option value="Gaenacology">Gaenacology</option>
+            <option value="Oncology">Oncology</option>
             <option value="Orthopedics">Orthopedics</option>
             <option value="Paediatrics">Paediatrics</option>
 

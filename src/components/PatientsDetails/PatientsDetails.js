@@ -4,7 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link, Redirect } from "react-router-dom";
 import moment from "moment";
-import closeIcon from "../../icons/closeIcon.png";
+
 
 const PatientsDetails = (props) => {
   const { onerequest, auth } = props;
@@ -17,7 +17,7 @@ const PatientsDetails = (props) => {
   };
   
 
-  console.log(props.match.params.id);
+  
   const themoment = moment(onerequest.createdAt.toDate()).calendar();
   if (onerequest) {
     return (
@@ -28,11 +28,10 @@ const PatientsDetails = (props) => {
               <div className="left-align card-action  grey-text">
                 <div>Category:{onerequest.specializationField}</div>
                 <div>Time Posted: {themoment}</div>
+                <div>Status:{onerequest.status}</div>
               </div>
               <span className="card-title blue-text">{onerequest.title}</span>
-              <a href="/">
-                <img src={closeIcon} alt="Close Image" />
-              </a>
+              
               <p>{onerequest.content}</p>
             </div>
             <div className="right-align" style={{ padding: "5%" }}>
