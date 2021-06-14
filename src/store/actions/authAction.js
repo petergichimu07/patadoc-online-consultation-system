@@ -61,16 +61,15 @@ export const signUpDoctors = (newUser) => {
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then((resp) => {
-        return firestore
+          firestore
           .collection("doctors")
           .doc(resp.user.uid)
           .set({
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             initials: newUser.firstName[0] + newUser.lastName[0],
-            specializationField: newUser.specializationField,
-          })
-          .then((resp) => {
+            specializationField: newUser.specializationField})
+
             firestore
               .collection("users")
               .doc(resp.user.uid)
@@ -80,10 +79,7 @@ export const signUpDoctors = (newUser) => {
                 initials: newUser.firstName[0] + newUser.lastName[0],
                 type: newUser.type,
               });
-          });
-      })
-
-      .then(() => {
+      }).then(() => {
         dispatch({ type: "SIGNUP_SUCCESS" });
       })
       .catch((err) => {

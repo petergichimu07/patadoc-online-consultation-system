@@ -1,19 +1,63 @@
 import React from "react";
-import moment from 'moment';
+import moment from "moment";
 
-
-const PatientSummary = ({patientRequest}) => {
-  const dateAndTime=moment(patientRequest.createdAt.toDate()).calendar();
-  const contentSnippet= patientRequest.content.substring(0,50);
+const PatientSummary = ({ patientRequest }) => {
+  let statusBg;
+  if (patientRequest.status === "pending") {
+    statusBg = "orange";
+  }
+  if (patientRequest.status === "Solved") {
+    statusBg = "green";
+  }
+  if (patientRequest.status === "referred") {
+    statusBg = "red";
+  }
+  const dateAndTime = moment(patientRequest.createdAt.toDate()).calendar();
+  const contentSnippet = patientRequest.content.substring(0, 50);
   return (
-    <div className="card z-depth-0 project-summary">
-      <span className="card-title">{patientRequest.specializationField}</span>
-      <div className="card-content grey-text text-darken-3">
-        <p>{contentSnippet}...</p>
-        <p className="grey-text text-darken-1">{dateAndTime} </p>
-        <p className="grey-text text-darken-1">Status: {patientRequest.status}</p>
-        
+    <div className="card z-depth-2 project-summary" style={{ height: "200px",position:"relative" }}>
+      <div
+        className="right white-text"
+        style={{
+          marginTop: "10px",
+          textTransform: "uppercase",
+          fontWeight: "bold",
+        }}
+      >
+        <p className={statusBg} style={{ padding: "0px 8px" }}>
+          {patientRequest.status}
+        </p>
       </div>
+      <div className="card-title" style={{}}
+      style={{
+        position:"absolute",
+        top: "30px",
+        left:"5px"
+
+      }}>
+        {patientRequest.specializationField}
+      </div>
+      <div className="card-content left-align grey-text text-darken-3"
+      style={{
+        position:"absolute",
+        top:"60px",
+        left:"2px"
+      }}>
+        <p>{contentSnippet}...</p>
+      </div>
+      <p
+        className="grey-text text-darken-1 right-align"
+        style={{
+          fontSize: "12px",
+          position: "absolute",
+          bottom:"2px",
+          right:"2px",
+          fontWeight:"bold"
+          
+        }}
+      >
+        {dateAndTime}{" "}
+      </p>
     </div>
   );
 };

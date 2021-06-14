@@ -8,6 +8,8 @@ class makeRequest extends Component {
     title: "",
     specializationField: "",
     content: "",
+    prescription:"",
+    currentfeeling:"",
     status: "pending"
   };
   handleChange = (e) => {
@@ -48,19 +50,37 @@ class makeRequest extends Component {
               <option value="Gaenacology">Reproductive Health</option>
               <option value="Oncology">Cancer</option>
               <option value="Orthopedic">Bone Diseases</option>
-              <option value="Paediatrician">Child Diseases</option>
+              <option value="Paediatrics">Child Diseases</option>
               
             </select>
           </div>
           <div className="input-field">
-            <label htmlFor="title">Name of the disease (If known)</label>
+            <label htmlFor="title">Name of earlier diagnosed disease</label>
             <input type="text" id="title" onChange={this.handleChange} />
           </div>
          
           <div className="input-field">
-            <label htmlFor="content">Describe what you are feeling</label>
+            <label htmlFor="content">Describe your condition before visiting the hospital</label>
             <textarea
               id="content"
+              className="materialize-textarea"
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="prescription">Describe the prescription given</label>
+            <textarea
+              id="prescription"
+              className="materialize-textarea"
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="currentfeeling">Describe how you are feeling after the prescription</label>
+            <textarea
+              id="currentfeeling"
               className="materialize-textarea"
               onChange={this.handleChange}
               required

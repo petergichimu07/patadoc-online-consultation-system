@@ -21,9 +21,7 @@ class signupDoctors extends Component {
     e.preventDefault();
     this.props.signUpDoctors(this.state);
   }
-  verifyRegistration = (e) =>{
-    console.log(e);
-  }
+  
   render() {
     const { auth, authError } = this.props;
     if (auth.uid) return <Redirect to="/" />;

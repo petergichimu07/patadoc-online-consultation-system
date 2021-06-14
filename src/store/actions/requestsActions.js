@@ -1,5 +1,6 @@
 export const createRequest = (request) => {
   return (dispatch, getState,{getFirebase,getFirestore}) => {
+    dispatch({type: 'CREATE_REQUEST_LOAD',request})
     const firestore=getFirestore();
     const profile = getState().firebase.profile;
     const authorId= getState().firebase.auth.uid;

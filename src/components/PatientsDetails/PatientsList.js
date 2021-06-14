@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const PatientList = ({ patientsRequests }) => {
   return (
     
-    <div className="project-list section" style={{overflowX:"hidden", overflowY:"scroll",height:"600px"}}>
+    <div className="project-list gridList section" style={{overflowX:"hidden", overflowY:"scroll",height:"600px"}}>
       
       {patientsRequests &&
         patientsRequests.map((patientRequest) => {

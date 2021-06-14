@@ -4,20 +4,34 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link, Redirect } from "react-router-dom";
 import moment from "moment";
-
+import firebase from "./../../config/fbConfig";
 
 const PatientsDetails = (props) => {
   const { onerequest, auth } = props;
   if (!auth.uid) return <Redirect to="/signin" />;
+  const requestId = props.match.params.id;
+  const db = firebase.firestore();
+  const confirmPrescription = () => {
+    
 
-  const reply = () => {
-    const name = "Specialist";
-    const room = props.match.params.id;
-    window.location.href = `/chat?name=${name}&room=${room}`;
+    db.collection("patientRequests").doc(requestId).update({
+      gpReview: "ok",
+      status: "Solved"
+      
+    });
   };
-  
-
-  
+  const recommend =()=>{
+    db.collection("patientRequests").doc(requestId).update({
+      gpReview: "critical",
+      status: "referred"
+      
+    });
+  }
+  //  const deleteRecord=()=>{
+  //   db.collection("patientRequests").doc(requestId).delete().await()
+  //   props.history.push("/");
+    
+  //  }
   const themoment = moment(onerequest.createdAt.toDate()).calendar();
   if (onerequest) {
     return (
@@ -29,28 +43,68 @@ const PatientsDetails = (props) => {
                 <div>Category:{onerequest.specializationField}</div>
                 <div>Time Posted: {themoment}</div>
                 <div>Status:{onerequest.status}</div>
+                <div>Previous diagnosis: {onerequest.title}</div>
               </div>
-              <span className="card-title blue-text">{onerequest.title}</span>
-              
-              <p>{onerequest.content}</p>
+              <span className="card-title blue-text">Description</span>
+              <div className="left-align">
+                <div className="hoverable grey lighten-5 ">
+                  <p
+                    className="blue-text text-darken-2"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Previous Condition{" "}
+                  </p>
+                  <p>{onerequest.content}</p>
+                </div>
+                <div className="divider "></div>
+                <div className="hoverable grey lighten-5 ">
+                  <p
+                    className="blue-text text-darken-2"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Prescription Given
+                  </p>
+                  <p>{onerequest.prescription}</p>
+                </div>
+
+                <div className="divider"></div>
+                <div className="hoverable grey lighten-5">
+                  <p
+                    className="blue-text text-darken-2"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Current Condition{" "}
+                  </p>
+                  <p>{onerequest.currentfeeling}</p>
+                </div>
+              </div>
             </div>
             <div className="right-align" style={{ padding: "5%" }}>
               <button
                 className="btn red lighten-1 waves-effect waves-dark z-depth-0"
-                onClick={reply}
+                onClick={confirmPrescription}
               >
-                Reply
+                Correct Diagnosis
               </button>
-              
-              <Link
-                to={"/assign/" + props.match.params.id+"/"+ onerequest.specializationField }
+
+              {/* <Link
+                to={
+                  "/assign/" +
+                  props.match.params.id +
+                  "/" +
+                  onerequest.specializationField
+                }
                 category={onerequest.specializationField}
                 id={props.match.params.id}
                 className="btn red lighten-1 waves-effect waves-dark z-depth-0"
                 style={{ marginLeft: "15px" }}
               >
                 Assign to Specialist
-              </Link>
+              </Link> */}
+              <btn className="btn red lighten-1 waves-effect waves-dark z-depth-0" style={{ marginLeft: "15px" }} onClick={recommend}>
+                Recommend Specialist
+              </btn>
+              {/* <button onClick={deleteRecord}>Delete</button> */}
             </div>
           </div>
         </div>
