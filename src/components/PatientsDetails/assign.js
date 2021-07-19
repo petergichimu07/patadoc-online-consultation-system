@@ -4,6 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { Redirect } from "react-router";
 import { compose } from "redux";
 import firebase from "./../../config/fbConfig";
+import loading from "../../icons/loading.png";
 
 const AssignSpecialist = (props) => {
   const { auth, doctors } = props;
@@ -11,21 +12,24 @@ const AssignSpecialist = (props) => {
 
   const requestId = props.match.params.id;
   const category = props.match.params.category;
-
+if(!doctors){return(<div className="container center-align">
+<img className="image" src={loading} alt="loading icon" />
+</div>);}
   const availableSpecialists = Object.entries(doctors).filter(
     ([key, value]) => value.specializationField === category
   );
   const engage = (key) => {
     const db = firebase.firestore();
-
+    const name="Patient"
     db.collection("doctors").doc(key).update({
       status: "engaged",
       
     });
     db.collection("patientRequests").doc(requestId).update({
-      status: "engaged",
+      status: "consulting",
       engagedTo: key
-    });
+    })
+    // .then(window.location.href = `/chat?name=${name}&room=${requestId}`)
   };
   if (availableSpecialists.length === 0) {
     return (
@@ -67,7 +71,7 @@ const AssignSpecialist = (props) => {
                         className="btn red waves-effect waves-effect-darken"
                         onClick={() => engage(key)}
                       >
-                        Engage
+                        Consult
                       </button>
                     </td>
                   </tr>

@@ -8,7 +8,7 @@ const SignedInLinks = (props) => {
   // console.log(props.profile.initials);
   if (props.profile.type === "patient") {
     return (
-      <div>
+      <div className="right">
         <ul>
           <li>
             <Link to="/create-request">Create New Request</Link>

@@ -13,9 +13,12 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
   };
   if (onerecord.gpReview === "ok") {
     message =
-      "Your Condition has been reviewed and there is nothing to worry about. There is no reason to worry";
+      "Your Condition has been reviewed and you are experiencing normal signs of recovery. There is no reason to worry";
   } else if (onerecord.gpReview === "critical") {
     message = "You need to seek further medical consultation.";
+  }
+  else{
+    message= "Please wait for the General Physician to review your request. Thank you."
   }
   if (onerecord.status === "pending") {
     statusBg = "orange";
@@ -25,6 +28,9 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
   }
   if (onerecord.status === "referred") {
     statusBg = "red";
+  }
+  if (onerecord.status === "consulting") {
+    statusBg = "blue";
   }
   if (!onerecord) {
     return (
@@ -50,7 +56,7 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
         <div
           className="right white-text center-align"
           style={{
-            width: "",
+            
             marginRight: "5px",
             textTransform: "uppercase",
             fontWeight: "bold",
@@ -77,13 +83,33 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
         <div
           className=" grey-text text-darken-2 right-align"
           style={{ padding: "10px" }}
-        >
+        ><div>
+          {onerecord.status==="consulting"?
           <button
-            className="btn red lighten-2 waves-effect waves-dark z-depth-0"
+            className="btn red lighten-1 waves-effect waves-dark z-depth-0"
             onClick={reply}
           >
             Check Reply
-          </button>
+          </button>:null
+}
+          </div>
+          <div>
+            {onerecord.status==="referred"?
+          <Link
+                to={
+                  "/assign/" +
+                  recordKey +
+                  "/" +
+                  onerecord.specializationField
+                }
+                category={onerecord.specializationField}
+                id={recordKey}
+                className="btn red lighten-1 waves-effect waves-dark z-depth-0"
+                style={{ marginLeft: "15px" }}
+              >
+                Consult Specialist
+              </Link>: null
+}</div>
         </div>
       </div>
     </div>

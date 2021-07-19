@@ -8,12 +8,19 @@
   .gridList{
     grid-template-columns: 1fr 1fr 1fr;
   }
+  .navHeading{
+    display: none;
+  }
   
 }
 
 @media screen and (max-width: 600px) {
   .gridList{
     grid-template-columns: 1fr 1fr;
+  }
+  .brand-logo{
+    text-align: left;
+    left: 20%;
   }
   
 }

@@ -68,7 +68,8 @@ export const signUpDoctors = (newUser) => {
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             initials: newUser.firstName[0] + newUser.lastName[0],
-            specializationField: newUser.specializationField})
+            specializationField: newUser.specializationField,
+            status:newUser.status})
 
             firestore
               .collection("users")

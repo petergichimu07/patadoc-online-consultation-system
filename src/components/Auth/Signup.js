@@ -29,7 +29,7 @@ class Signup extends Component {
       <div className="row">
         <div className="card offset-m4 z-depth-4 col s12 m4"style={{marginTop:"1%"}} >
           <div className="">
-            <form onSubmit={this.handleSubmit} className="white">
+            <form onSubmit={this.handleSubmit} className="white" autoComplete="off">
               <h5 className="grey-text text-darken-3">Sign Up</h5>
               <div className="input-field">
                 <label htmlFor="lastName">First Name</label>

@@ -12,27 +12,36 @@ const PatientsDetails = (props) => {
   const requestId = props.match.params.id;
   const db = firebase.firestore();
   const confirmPrescription = () => {
-    
-
     db.collection("patientRequests").doc(requestId).update({
       gpReview: "ok",
-      status: "Solved"
-      
+      status: "Solved",
     });
   };
-  const recommend =()=>{
+  const recommend = () => {
     db.collection("patientRequests").doc(requestId).update({
       gpReview: "critical",
-      status: "referred"
-      
+      status: "referred",
     });
-  }
+  };
   //  const deleteRecord=()=>{
   //   db.collection("patientRequests").doc(requestId).delete().await()
   //   props.history.push("/");
-    
+
   //  }
   const themoment = moment(onerequest.createdAt.toDate()).calendar();
+  let statusBg;
+  if (onerequest.status === "pending") {
+    statusBg = "orange";
+  }
+  if (onerequest.status === "Solved") {
+    statusBg = "green";
+  }
+  if (onerequest.status === "referred") {
+    statusBg = "red";
+  }
+  if (onerequest.status === "consulting") {
+    statusBg = "blue";
+  }
   if (onerequest) {
     return (
       <div>
@@ -42,8 +51,13 @@ const PatientsDetails = (props) => {
               <div className="left-align card-action  grey-text">
                 <div>Category:{onerequest.specializationField}</div>
                 <div>Time Posted: {themoment}</div>
-                <div>Status:{onerequest.status}</div>
                 <div>Previous diagnosis: {onerequest.title}</div>
+              </div>
+              <div
+                className="right"
+                style={{ textTransform: "uppercase", fontWeight: "bold",display:"flex" }}
+              ><p className="grey-text text-darken-2">Status:</p>
+                <p className={statusBg} style={{color:"#FFF",padding:"0px 5px"}}>{onerequest.status}</p>
               </div>
               <span className="card-title blue-text">Description</span>
               <div className="left-align">
@@ -84,25 +98,16 @@ const PatientsDetails = (props) => {
                 className="btn red lighten-1 waves-effect waves-dark z-depth-0"
                 onClick={confirmPrescription}
               >
-                Correct Diagnosis
+                Correct Diagnosis and prescription
               </button>
 
-              {/* <Link
-                to={
-                  "/assign/" +
-                  props.match.params.id +
-                  "/" +
-                  onerequest.specializationField
-                }
-                category={onerequest.specializationField}
-                id={props.match.params.id}
+              
+              <btn
                 className="btn red lighten-1 waves-effect waves-dark z-depth-0"
                 style={{ marginLeft: "15px" }}
+                onClick={recommend}
               >
-                Assign to Specialist
-              </Link> */}
-              <btn className="btn red lighten-1 waves-effect waves-dark z-depth-0" style={{ marginLeft: "15px" }} onClick={recommend}>
-                Recommend Specialist
+                Further consultation needed
               </btn>
               {/* <button onClick={deleteRecord}>Delete</button> */}
             </div>

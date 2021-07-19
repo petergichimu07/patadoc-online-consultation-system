@@ -12,6 +12,9 @@ const PatientSummary = ({ patientRequest }) => {
   if (patientRequest.status === "referred") {
     statusBg = "red";
   }
+  if (patientRequest.status === "consulting") {
+    statusBg = "blue";
+  }
   const dateAndTime = moment(patientRequest.createdAt.toDate()).calendar();
   const contentSnippet = patientRequest.content.substring(0, 50);
   return (
@@ -28,19 +31,23 @@ const PatientSummary = ({ patientRequest }) => {
           {patientRequest.status}
         </p>
       </div>
-      <div className="card-title" style={{}}
+      <div className="card-content" style={{}}
       style={{
         position:"absolute",
         top: "30px",
-        left:"5px"
+        left:"5px",
+        fontSize: "15px",
+        fontWeight: "bold"
 
       }}>
-        {patientRequest.specializationField}
+        {patientRequest.title}
       </div>
-      <div className="card-content left-align grey-text text-darken-3"
+      <div className="card-content left-align patadocpatadoc
+      grey-text text-darken-3"
       style={{
+        paddingTop:"",
         position:"absolute",
-        top:"60px",
+        top:"70px",
         left:"2px"
       }}>
         <p>{contentSnippet}...</p>

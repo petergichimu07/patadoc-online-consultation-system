@@ -10,7 +10,8 @@ class signupDoctors extends Component {
     firstName: "",
     lastName: "",
     specializationField: "",
-    type: "specialist"
+    type: "specialist",
+    status:"Free"
   };
   handleChange = (e) => {
     this.setState({
@@ -64,7 +65,7 @@ class signupDoctors extends Component {
             id="specializationField"
             onChange={this.handleChange}
             required
-          >
+          ><option>Select Catogory</option>
             <option value="Dental health">Dental Health</option>
             <option value="Psychiatry">Psychiatry</option>
             <option value="Dermatology">Dermatology</option>

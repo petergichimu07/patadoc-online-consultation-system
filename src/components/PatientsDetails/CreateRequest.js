@@ -29,7 +29,7 @@ class makeRequest extends Component {
     if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <div className="container z-depth-5">
-        <form onSubmit={this.handleSubmit} className="white">
+        <form onSubmit={this.handleSubmit} className="white" autoComplete="off">
           <h5 className="blue-text text-darken-1">Lets Get You Well!</h5>
           <div>
             <p className="left-align grey-text text-darken-2">

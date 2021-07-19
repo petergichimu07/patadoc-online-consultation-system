@@ -26,27 +26,17 @@ const Navbar = (props) => {
       }}
     >
       <div className="container">
-        <a data-target="mobile-demo" className="sidenav-trigger">
-          <i
-            style={{ display: "flex", alignItems: "center" }}
-            onClick={() => alert("cliked")}
-            className="material-icons"
-          >
-            <img
-              className="responsive-img"
-              style={{ width: "100px", color: "#fff" }}
-              src={menuIcon}
-              alt="Menu Icon"
-            />
-          </i>
-        </a>
-        <ul className="right hide-on-med-and-down">{links}</ul>
-        <ul class="sidenav" id="mobile-demo">
+        
+        <ul className=" hide-on-med-and-downn navlist">{links}</ul>
+        <ul className="sidenav" id="mobile-demo">
           {links}
         </ul>
-        <Link className="left-align" to="/" className="brand-logo">
-          PataDoc
+        <div className="left-align ">
+        <Link to="/" className="brand-logo" >
+         <h5 className="navHeading"style={{fontSize:"2vw"}}>Online Patient-Specialist Consultation System</h5> 
         </Link>
+        </div>
+        
       </div>
     </nav>
   );
