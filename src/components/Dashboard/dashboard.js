@@ -7,6 +7,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import LoggedInPatientList from "../PatientsDetails/loggedInPatientList";
 import SpecialistsView from "../specialists/specialistsView";
+import Admin from "./Admin";
 import loadingIcon from "../../icons/loadingIcon.png";
 class Dashboard extends Component {
   render() {
@@ -57,7 +58,12 @@ class Dashboard extends Component {
           </div>
         </div>
       );
-    } else return (<div className="container center-align">
+    } else if (profile.type==="admin"){
+      return (
+        <div><Admin /> </div>
+      )
+    }
+    else return (<div className="container center-align">
     <img className="image" src={loadingIcon} alt="loading icon" />
   </div>);
   }

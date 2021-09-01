@@ -6,6 +6,9 @@ const SpecializedRequests = ({ onerecord, recordKey }) => {
     const name = "Specialist";
     window.location.href = `/chat?name=${name}&room=${recordKey}`;
   };
+  const schedule =()=>{
+    
+  }
   return (
     <div className="card z-depth-2 grey lighten-4 project-summary">
       <div className="whitooe">
@@ -23,7 +26,7 @@ const SpecializedRequests = ({ onerecord, recordKey }) => {
           {/* <p>Status: {onerecord.status}</p> */}
           <button
             className="btn red darken-2 waves-effect waves-dark z-depth-0"
-            onClick={reply}
+            onClick={schedule}
           >
             Reply
           </button>
