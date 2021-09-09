@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useDebugValue } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Redirect } from "react-router";
@@ -15,14 +15,15 @@ if(!doctors){return(<div className="container center-align">
   const availableSpecialists = Object.entries(doctors)
 
   const db = firebase.firestore();
-  const deleteSpecialist = async (key) => {
-    const name="Patient"
-   await db.collection("doctors").doc(key).delete((err)=>{
-     if (err){
-       console.log(err);
-     }
+  const suspend = (key)=> {
+    
+   db.collection("doctors").doc(key).update({
+     status: "Suspended"
    })
-    return key;
+   db.collection("users").doc(key).update({
+    status: "Suspended"
+  })
+    
   };
   const addGP = (key)=>{
 db.collection("users").doc(key).update({
@@ -33,6 +34,19 @@ db.collection("doctors").doc(key).update({
   specializationField: "General Physician"
 })
   }
+  // let statusBg= ""
+  // if (doctors.status === "engaged") {
+  //   statusBg = "orange";
+  // }
+  // if (doctors.status === "Free") {
+  //   statusBg = "green";
+  // }
+  // if (doctors.status === "suspended") {
+  //   statusBg = "red";
+  // }
+  // if (doctors.status === "consulting") {
+  //   statusBg = "blue";
+  // }
   if (availableSpecialists.length === 0) {
     return (
       <div className="container">
@@ -55,6 +69,7 @@ db.collection("doctors").doc(key).update({
               <tr>
                 <th>Name</th>
                 <th>Field of Specialization</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -68,12 +83,13 @@ db.collection("doctors").doc(key).update({
                       {value.firstName} {value.lastName}
                     </td>
                     <td>{value.specializationField}</td>
+                    <td className=" ">{value.status}</td>
                     <td>
                       <button
                         className="btn red waves-effect waves-effect-darken"
-                        onClick={() => deleteSpecialist(key)}
+                        onClick={() => suspend(key)}
                       >
-                        Remove
+                        Suspend
                       </button>
                       <button
                         className="btn red waves-effect waves-effect-darken"

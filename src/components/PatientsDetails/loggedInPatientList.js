@@ -9,8 +9,20 @@ import { Link } from "react-router-dom";
 const LoggedInPatientList = (props) => {
   const { patientsRequests, auth, profile, userId } = props;
   if (!auth.uid) return <Redirect to="/signin" />;
-  
-  console.log(patientsRequests);
+  console.log(profile);
+  if (profile.status==="Suspended"){
+    return (
+    <div className="container " style={{ height: "600px" }}>
+        <div className="card" style={{marginTop:"20%"}}>
+          <div className="card-content">
+           <p>Your account has been suspended due to violation of our policy.</p> 
+           
+          </div>
+          
+        </div>
+      </div>
+    )
+  }
   const recordsAsArray = Object.entries(patientsRequests).filter(
     ([key, value]) => value.authorId === userId
   );
@@ -33,6 +45,7 @@ const LoggedInPatientList = (props) => {
     <div className="dashboard container ">
       <div className="row ">
         <div>
+        <span className="card-title">Your Requests</span>
           <div
             className="project-list section"
             style={{

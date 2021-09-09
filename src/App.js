@@ -14,6 +14,7 @@ import Join from "./components/Join/Join";
 import { useSelector } from "react-redux";
 import AssignSpecialist from "./components/PatientsDetails/assign";
 import loadingIcon from "../src/icons/loadingIcon.png";
+import feedback from "./components/PatientsDetails/feedback";
 
 function App() {
   const auth = useSelector((state) => state.firebase.auth);
@@ -44,6 +45,7 @@ function App() {
             <Route path="/signup-doctor" component={signupDoctors} />
             <Route path="/join" exact component={Join} />
             <Route path="/chat" component={Chat} />
+            <Route path="/feedback/:id/:category" component={feedback} />
             <Route path="/assign/:id/:category" component={AssignSpecialist} />
             <Route
               component={() => (

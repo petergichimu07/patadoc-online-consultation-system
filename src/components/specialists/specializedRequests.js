@@ -1,13 +1,22 @@
-import React from "react";
+import React,{useState} from "react";
+import DateTimePicker from 'react-datetime-picker';
 import moment from "moment";
-
+import firebase from "./../../config/fbConfig";
 const SpecializedRequests = ({ onerecord, recordKey }) => {
-  const reply = () => {
+  const db = firebase.firestore();
+  const [thetime, settheTime] = useState(new Date());
+  const schedule = () => {
     const name = "Specialist";
+    
+      db.collection("chats").add({
+        room: recordKey,
+      });
     window.location.href = `/chat?name=${name}&room=${recordKey}`;
   };
-  const schedule =()=>{
-    
+  const endConsultation =()=> {
+    db.collection("patientRequests").doc(recordKey).update({
+      status: "complete"
+    })
   }
   return (
     <div className="card z-depth-2 grey lighten-4 project-summary">
@@ -28,8 +37,10 @@ const SpecializedRequests = ({ onerecord, recordKey }) => {
             className="btn red darken-2 waves-effect waves-dark z-depth-0"
             onClick={schedule}
           >
-            Reply
+            Contact
           </button>
+          <button className="btn red darken-2 waves-effect waves-dark z-depth-0"
+            onClick={endConsultation}>End Consultation</button>
         </div>
       </div>
     </div>

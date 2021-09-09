@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
+import firebase from "./../../config/fbConfig";
 
 import "./Chat.css";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from '../Messages/Messages';
+
+
 
 let socket;
 
@@ -40,6 +43,19 @@ const Chat = ({ location }) => {
     event.preventDefault();
     if (message) {
       socket.emit("sendMessage", message, () => setMessage(""));
+      // **********************************
+      const db = firebase.firestore();
+      let timeStamp= new Date()
+      const sentMessage= timeStamp+message
+     db.collection("chats").doc(data.room).update
+     ({
+       sentMessage,
+        timeStamp,
+         message,
+        sentBy: data.name,
+      });
+      
+      // **********************************
     }
   };
 

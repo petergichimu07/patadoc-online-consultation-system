@@ -5,16 +5,28 @@ import { compose } from "redux";
 import SpecializedRequests from "./specializedRequests";
 
 const SpecialistsView = (props) => {
-  const { requests, auth } = props;
+  const { requests, auth, profile } = props;
+  if (profile.status==="Suspended"){
+    return (
+      <div className="container " style={{ height: "600px" }}>
+        <div className="card" style={{ marginTop: "20%" }}>
+          <div className="card-content">
+            <p>Your Account has been suspended due to violation of our policy.</p>
+          </div>
+        </div>
+      </div>
+    );
+  
+  }
   if (!requests) {
     return <div>Checking Requests...</div>;
   }
-  console.log(requests);
+  
   const specializedRequests = Object.entries(requests).filter(
     ([key, value]) => value.engagedTo === auth.uid
   );
-  console.log("Requests", requests);
-  console.log("UID: ", auth.uid);
+ 
+  
   if (specializedRequests.length === 0) {
     return (
       <div className="container " style={{ height: "600px" }}>
@@ -29,11 +41,14 @@ const SpecialistsView = (props) => {
 
   return (
     <div>
+      <div className="card">
+        <div className="card-title">Current Requests</div>
       {specializedRequests.map((onerequest) => {
         let key = onerequest[0];
         let value = onerequest[1];
         return <SpecializedRequests onerecord={value} recordKey={key} />;
       })}
+      </div>
     </div>
   );
 };

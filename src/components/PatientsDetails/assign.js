@@ -16,7 +16,7 @@ if(!doctors){return(<div className="container center-align">
 <img className="image" src={loading} alt="loading icon" />
 </div>);}
   const availableSpecialists = Object.entries(doctors).filter(
-    ([key, value]) => value.specializationField === category
+    ([key, value]) => value.specializationField === category && value.status !="Suspended"
   );
   const engage = (key) => {
     const db = firebase.firestore();

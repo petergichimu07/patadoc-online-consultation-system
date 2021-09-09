@@ -14,14 +14,13 @@ const AssignSpecialist = (props) => {
 if(!users){return(<div className="container center-align">
 <img className="image" src={loading} alt="loading icon" />
 </div>);}
-  const availableSpecialists = Object.entries(users).filter(
+  const currentUsers = Object.entries(users).filter(
     ([key, value]) => value.type === "patient"
   );
-  const engage = (key) => {
+  const suspend = (key) => {
     const db = firebase.firestore();
-    const name="Patient"
-    db.collection("doctors").doc(key).update({
-      status: "engaged",
+    db.collection("users").doc(key).update({
+      status: "Suspended",
       
     });
     // db.collection("patientRequests").doc(requestId).update({
@@ -30,7 +29,7 @@ if(!users){return(<div className="container center-align">
     // })
     // .then(window.location.href = `/chat?name=${name}&room=${requestId}`)
   };
-  if (availableSpecialists.length === 0) {
+  if (currentUsers.length === 0) {
     return (
       <div className="container">
         <div className="card">
@@ -56,7 +55,7 @@ if(!users){return(<div className="container center-align">
               </tr>
             </thead>
             <tbody className="centered">
-              {availableSpecialists.map((specialist) => {
+              {currentUsers.map((specialist) => {
                 let key = specialist[0];
                 let value = specialist[1];
                 return (
@@ -64,13 +63,13 @@ if(!users){return(<div className="container center-align">
                     <td>
                       {value.firstName} {value.lastName}
                     </td>
-                    <td>another column</td>
+                    <td>{value.status}</td>
                     <td>
                       <button
                         className="btn red waves-effect waves-effect-darken"
-                        onClick={() => engage(key)}
+                        onClick={() => suspend(key)}
                       >
-                        Remove User
+                        Suspend User
                       </button>
                     </td>
                   </tr>

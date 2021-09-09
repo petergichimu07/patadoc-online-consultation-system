@@ -15,14 +15,9 @@ class Dashboard extends Component {
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     } else if (profile.type === "patient") {
-      console.log(auth.uid);
       return (
-        <div className="container">
-          <div className="card z-depth-0 project-summary">
-            <span className="card-title">Your Requests</span>
-
-            <LoggedInPatientList />
-          </div>
+        <div>
+          <LoggedInPatientList />
         </div>
       );
     } else if (profile.type === "GP") {
@@ -49,23 +44,24 @@ class Dashboard extends Component {
           </div>
         </div>
       );
-    } else if (profile.type==="specialist") {
+    } else if (profile.type === "specialist") {
       return (
         <div className="container">
-          <div className="card">
-            <div className="card-title">Assigned Patient Requests</div>
-            <SpecialistsView />
-          </div>
+          <SpecialistsView />
         </div>
       );
-    } else if (profile.type==="admin"){
+    } else if (profile.type === "admin") {
       return (
-        <div><Admin /> </div>
-      )
-    }
-    else return (<div className="container center-align">
-    <img className="image" src={loadingIcon} alt="loading icon" />
-  </div>);
+        <div>
+          <Admin />{" "}
+        </div>
+      );
+    } else
+      return (
+        <div className="container center-align">
+          <img className="image" src={loadingIcon} alt="loading icon" />
+        </div>
+      );
   }
 }
 

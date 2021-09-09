@@ -16,14 +16,14 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
       "Your Condition has been reviewed and you are experiencing normal signs of recovery. There is no reason to worry";
   } else if (onerecord.gpReview === "critical") {
     message = "You need to seek further medical consultation.";
-  }
-  else{
-    message= "Please wait for the General Physician to review your request. Thank you."
+  } else {
+    message =
+      "Please wait for the General Physician to review your request. Thank you.";
   }
   if (onerecord.status === "pending") {
     statusBg = "orange";
   }
-  if (onerecord.status === "Solved") {
+  if (onerecord.status === "Solved" || onerecord.status==="complete") {
     statusBg = "green";
   }
   if (onerecord.status === "referred") {
@@ -56,14 +56,14 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
         <div
           className="right white-text center-align"
           style={{
-            
             marginRight: "5px",
             textTransform: "uppercase",
             fontWeight: "bold",
-            display: "flex"
+            display: "flex",
           }}
-        ><p className="grey-text text-darken-3">Status: </p>
-          <p className={statusBg} style={{padding:"0px 8px"}}>
+        >
+          <p className="grey-text text-darken-3">Status: </p>
+          <p className={statusBg} style={{ padding: "0px 8px" }}>
             {onerecord.status}
           </p>
         </div>
@@ -83,24 +83,22 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
         <div
           className=" grey-text text-darken-2 right-align"
           style={{ padding: "10px" }}
-        ><div>
-          {onerecord.status==="consulting"?
-          <button
-            className="btn red lighten-1 waves-effect waves-dark z-depth-0"
-            onClick={reply}
-          >
-            Check Reply
-          </button>:null
-}
+        >
+          <div>
+            {onerecord.status === "consulting" ? (
+              <button
+                className="btn red lighten-1 waves-effect waves-dark z-depth-0"
+                onClick={reply}
+              >
+                Check Reply
+              </button>
+            ) : null}
           </div>
           <div>
-            {onerecord.status==="referred"?
-          <Link
+            {onerecord.status === "referred" ? (
+              <Link
                 to={
-                  "/assign/" +
-                  recordKey +
-                  "/" +
-                  onerecord.specializationField
+                  "/assign/" + recordKey + "/" + onerecord.specializationField
                 }
                 category={onerecord.specializationField}
                 id={recordKey}
@@ -108,8 +106,21 @@ const LoggedInPatientSummary = ({ onerecord, recordKey }) => {
                 style={{ marginLeft: "15px" }}
               >
                 Consult Specialist
-              </Link>: null
-}</div>
+              </Link>
+            ) : null}
+          </div>
+          {onerecord.status==="complete"?   <Link
+                to={
+                  "/feedback/" + recordKey + "/" + onerecord.specializationField
+                }
+                category={onerecord.specializationField}
+                id={recordKey}
+                className="btn red lighten-1 waves-effect waves-dark z-depth-0"
+                style={{ marginLeft: "15px" }}
+              >
+                Give feedback
+              </Link>:
+          null}
         </div>
       </div>
     </div>
